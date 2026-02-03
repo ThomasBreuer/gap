@@ -1168,6 +1168,24 @@ InstallMethod( \/,
 
 #T no default methods should be needed for M^n, n an integer!
 
+# Forbid multiplication of matrix objects and matrices.
+# Whenever such a multiplication happens,
+# something went wrong, and it is better to get an early error message.
+# Note that the default method 'PROD_SCL_LIST_DEFAULT' with inputs
+# <matobj> and <matrix> would return the product of <matrix> and
+# the transposed of <matobj>.
+InstallMethod( \*,
+    [ IsMatrixObj, IsMatrix ],
+    function( matrixobj, matrix )
+      Error( "multiplication of <matrixobj> and <matrix> is not supported" );
+    end );
+
+InstallMethod( \*,
+    [ IsMatrix, IsMatrixObj ],
+    function( matrix, matrixobj )
+      Error( "multiplication of <matrix> and <matrixobj> is not supported" );
+    end );
+
 
 ############################################################################
 ##
